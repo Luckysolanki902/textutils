@@ -1,0 +1,202 @@
+npx create-reac-app my-app
+
+
+Create components folder in src => Inside components start making your components
+Use rfc to make a component (react function based component)
+
+
+In app.js (in src) clear the things inside return(), clear unnecessary imports
+Start writing jsx (html in js) like <Navbar/> in return statement
+
+
+Using Props:
+(You don't need to import anything to use props)
+Just pass a prop in any html component of app.js e.g.     <Navbar title='Your title here' />
+Now, go to src -> components=> Navbar.js and write props inside function(____Here_____), e.g. :-
+        export default function Navbar(props)
+        Now, just write {props.title} instead of Previous title, and that's it 
+
+If you want to set a default prop then, use this code:
+        Navbar.defaultProps = {
+        title: 'Set title here',
+}
+
+By default the propType is string, if you want to take the prompt as a number, so first import PropTypes (impt) in Navbar.js
+then:
+        Navbar.PropTypes = {
+            title: PropTypes.number,
+        }
+
+
+Using useState:
+write the following line after
+export default function Textform(props) {  
+    and before return() line:
+
+const [text, setText] = useState('The value of text')
+
+Now, in form, set value={text}
+So, 'The value of text' will be written in form
+But, now we can't write inside form as the value is set to {text} forever
+So, onChange={handleOnChange}
+and make a function all above return() but within function:
+    const handleOnChange = (event) =>{
+        setText(event.target.value)
+    }
+
+Now, let's make it change to uppercase when button is clicked:
+in btn: onClick={handleUpperCaseClick}
+ and make another function:
+     const handleUpperCaseClick = () => {
+        let newText = text.toUpperCase()
+        setText(newText)
+    }
+
+
+Let's make an 'Enable Dark Mode' button:
+For this we have to make the state in app.js, so we can use it throughout all components.
+    const [mode, setMode] = useState('light');
+And a function too:
+    const toggleDarkMode = () => {
+    setMode('dark')
+    document.body.style.backgroundColor = 'black';
+    document.body.style.color = 'white';
+    console.log(mode)
+  }
+Now, we'll pass this function as a prop so we can use it as a function in components:
+<Navbar aboutText='About' title='Navbar' mode={mode} toggleDarkMode={toggleDarkMode} />
+
+Now, Let's make a button in navbar and use this prop on onClick:
+    <button className="btn bg-danger rounded mx-2" onClick={props.toggleRedMode} style={{ height: '30px', width: '30px', cursor: 'pointer'  }}></button>
+
+Now, we can use this new mode set by setMode anywhere like Navbar class:
+      <nav className={`navbar navbar-expand-lg navbar-${props.mode} bg-${props.mode} ` }>
+
+We can also use ternary operators to control things:
+    <button className={`btn btn-outline-${props.mode=='light'?'dark': light'}`} type="submit">Search</button>
+
+Adding Alerts:
+First add a component and paste bootstrap, instead of message type {props.alert.msg}
+Now, make a state and a function which takes two arguments:
+    const [alert, setAlert] = useState(null)
+
+    const showAlert = (message, type) =>{
+        setAlert({
+            msg: message,
+            type: type
+        })
+        setTimeout(() => {
+            setAlert(null)
+            }, 1000);
+    }
+Now, send this showAlert function as a prop where you want to use it:
+      <Textform title='Enter Your Text Here' showAlert={showAlert}/>
+Now, in Textform component edit the previous functions:
+    const handleClearClick = () => {
+        setText('')
+        props.showAlert('Hey, Text was cleared', 'danger')
+    }
+
+
+Changing logo, favicon and title:
+Just go to public and then open index.html
+    change meta description to describe your app for better SEO 
+    Now, delete all images and icons in public folder
+    import your icon to public folder and edit this line:
+        <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+        to:
+        <link rel="icon" href="%PUBLIC_URL%/edit.png" />
+        Also, change the apple logo icon as:
+            <link rel="apple-touch-icon" href="%PUBLIC_URL%/edit.png" />
+
+        change the title by:
+            <title>Textutils-Home</title>
+
+        If you want to change your title dynamically then use:
+        document.title = 'Updated Title'
+        in any of the function of any component, e.g.:
+          const toggleDarkMode = () => {
+            setMode('dark')
+            document.body.style.backgroundColor = 'black';
+            document.body.style.color = 'white';
+            document.title = 'Textutils-DarkMode'
+            console.log(mode)
+        }
+
+
+Routing:_____________________________
+First import these things:
+
+    import {
+    BrowserRouter as Router,
+    Routes,
+    Route,
+    } from "react-router-dom";
+
+Now, type Router to make:
+      <Router>
+
+      </Router>
+
+Similarly, inside Router write Routes to make:
+
+      <Router>
+        <Routes>
+        
+        </Routes>
+      </Router>
+
+Now, add routes to it, for example:
+
+          <Route path='/home' element={<Textform title='Enter Your Text Here' showAlert={showAlert} />}></Route>
+          <Route path='/about' element={<About />}></Route>
+
+Now, the things look like this:
+
+      <Router>
+        <Routes>
+          <Route path='/home' element={<Textform title='Enter Your Text Here' showAlert={showAlert} />}></Route>
+          <Route path='/about' element={<About />}></Route>
+        </Routes>
+      </Router>
+
+Keep the common things outside the Router:
+      <Navbar aboutText='About' title='Navbar' mode={mode} toggleDarkMode={toggleDarkMode} toggleLightMode={toggleLightMode} />
+      <Alert alert={alert} />
+      
+      <Router>
+        <Routes>
+          <Route path='/home' element={<Textform title='Enter Your Text Here' showAlert={showAlert} />}></Route>
+          <Route path='/about' element={<About />}></Route>
+        </Routes>
+      </Router>
+
+Let's deploy it on GitHub:
+use this link:https://create-react-app.dev/docs/deployment/, or search 'create react app gh pages'
+Find in page 'github pages' and follow the guide.
+
+                                OR 
+
+Open package.json, paste: 
+  "homepage": "https://luckysolanki902.github.io/textutils",
+    (replace your remote repo name and your username)
+
+Run the following command:
+    npm install --save gh-pages
+
+Inside Debug => sctipt =>
+update the following code:
+      "scripts": {
+        "predeploy": "npm run build",
+        "deploy": "gh-pages -d build",
+
+
+Now, make sure to push everything on remote repo:
+ add, commit and then use: git push -u origin master to publish it (Your repo must be public)
+
+Now, run the following command:
+    npm run deploy
+
+    Everything done 
+    
+
