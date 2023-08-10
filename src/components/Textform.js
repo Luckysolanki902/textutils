@@ -10,7 +10,7 @@ export default function Textform(props) {
     const handleUpperCaseClick = () => {
         let newText = text.toUpperCase()
         setText(newText)
-        props.showAlert('Hey, Your text just changed to UPPERCASE', 'success')
+        // props.showAlert('Hey, Your text just changed to UPPERCASE', 'success')
 
         
     }
@@ -18,12 +18,12 @@ export default function Textform(props) {
     const handleLowerCaseClick = () => {
         let newText = text.toLowerCase()
         setText(newText)
-        props.showAlert('Hey, Your text just changed to lowercase', 'success')
+        // props.showAlert('Hey, Your text just changed to lowercase', 'success')
     }
 
     const handleClearClick = () => {
         setText('')
-        props.showAlert('Hey, Text was cleared', 'danger')
+        // props.showAlert('Hey, Text was cleared', 'danger')
 
     }
 
@@ -31,14 +31,14 @@ export default function Textform(props) {
         let myBox = document.getElementById('myBox')
         myBox.select()
         navigator.clipboard.writeText(myBox.value)
-        props.showAlert('Hey, Your text was just copied to clipboard', 'info')
+        // props.showAlert('Hey, Your text was just copied to clipboard', 'info')
 
     }
 
     const handleExtraSpacesClick = () =>{
         let newText = text.split(/\s+/)
         setText(newText.join(" "))
-        props.showAlert('Hey, Extra spaces were just removed from your text', 'success')
+        // props.showAlert('Hey, Extra spaces were just removed from your text', 'success')
 
     }
 
