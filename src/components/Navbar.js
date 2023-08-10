@@ -37,7 +37,7 @@ export default function Navbar(props) {
               <button className="btn bg-dark rounded mx-2" onClick={props.toggleDarkMode} style={{ height: '30px', width: '30px', cursor: 'pointer', display: props.mode==='light'?'flex':'none'  }}></button>
             </div>
 
-            <form className="d-flex" role="search">
+            <form className="d-flex my-2" role="search">
               <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
               <button className={`btn btn-outline-${props.mode=='light'?'dark':'light'}`} type="submit">Search</button>
             </form>
